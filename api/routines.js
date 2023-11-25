@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { getAllPublicRoutines, createRoutine, updateRoutine, getRoutineById, destroyRoutine, addActivityToRoutine, getRoutineActivitiesByRoutine } = require('../db');
+const { getAllPublicRoutines, createRoutine, updateRoutine, getRoutineById, destroyRoutine, addActivityToRoutine, getRoutineActivitiesByRoutine } = require('../db/routines');
 const { requireUser, requiredNotSent } = require('./utils')
 
 
@@ -11,6 +11,19 @@ router.get('/', async (req, res, next) => {
     // TODO - send back all data, including private, if token present. This would mean adding only the data for the user that matches the request
     const routines = await getAllPublicRoutines();
     res.send(routines);
+  } catch (error) {
+    next(error)
+  }
+})
+
+//TODO
+// GET /api/routines/rountinesId
+router.get('/:routineId', async (req, res, next) => {
+  try {
+    // TODO - send back all data, including private, if token present. This would mean adding only the data for the user that matches the request
+    const {routineId} = req.params;
+    const routine = await getRoutineById(routineId);
+    res.send(routine);
   } catch (error) {
     next(error)
   }
