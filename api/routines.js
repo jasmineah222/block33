@@ -21,7 +21,7 @@ router.get('/', async (req, res, next) => {
 router.get('/:routineId', async (req, res, next) => {
   try {
     // TODO - send back all data, including private, if token present. This would mean adding only the data for the user that matches the request
-    const {routineId} = req.params;
+    const { routineId } = req.params.id;
     const routine = await getRoutineById(routineId);
     res.send(routine);
   } catch (error) {
